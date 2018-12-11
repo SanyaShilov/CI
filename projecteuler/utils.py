@@ -5,7 +5,7 @@ async def on_shutdown(app):
 
 def round_statistics(obj):
     if isinstance(obj, float):
-                return round(obj, 3)
+            return round(obj, 3)
     if isinstance(obj, list):
             return [round_statistics(item) for item in obj]
     if isinstance(obj, dict):
