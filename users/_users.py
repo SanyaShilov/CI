@@ -4,29 +4,6 @@ import bson
 import pymongo
 
 
-from pycallgraph2 import PyCallGraph
-from pycallgraph2.output import GraphvizOutput
-from pycallgraph2 import Config
-from pycallgraph2 import GlobbingFilter
-
-
-config = Config()
-config.trace_filter = GlobbingFilter(exclude=[
-    'pycallgraph*',
-    '*asyncio*',
-    '*bson*',
-    '*selectors*',
-    '*conftest*',
-    '*motor*',
-    '*threading*',
-    '*queue*',
-    '*concurrent*',
-    '*aiohttp*',
-])
-
-graphviz = GraphvizOutput(output_file='full_graph.png')
-
-
 async def register(db, login, password):
     token = str(bson.ObjectId())
     user = await db.users.find_one_and_update(

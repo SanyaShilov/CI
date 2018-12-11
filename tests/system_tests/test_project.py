@@ -1,3 +1,5 @@
+# pylint: disable=global-statement,invalid-name,redefined-builtin
+
 import asyncio
 import os
 
