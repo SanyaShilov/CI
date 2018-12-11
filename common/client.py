@@ -4,6 +4,8 @@ from common import utils
 
 
 class Client:
+    baseurl: str
+
     def __init__(self, loop=None):
         self.session = asyncio.get_event_loop().run_until_complete(
             utils.create_session(loop)

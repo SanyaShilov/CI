@@ -1,5 +1,4 @@
 import pytz
-import sys
 
 import dateutil.parser
 import aiohttp
