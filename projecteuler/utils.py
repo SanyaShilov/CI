@@ -1,3 +1,6 @@
+import datetime
+
+
 async def on_shutdown(app):
     await app.users_client.session.close()
     await app.tasks_client.session.close()
