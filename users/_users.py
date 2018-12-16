@@ -33,6 +33,21 @@ async def register(db, login, password):
 
 
 async def sign_in(db, login, password):
+    token = str(bson.ObjectId())
+    user = await db.users.find_one_and_update(
+        {
+            'login': login,
+            'password': password,
+            'token': {'$exists': False},
+        },
+        {
+            '$set': {
+                'token': token
+            }
+        }
+    )
+    if user:
+        return {'status': 'ok', 'token': token}
     user = await db.users.find_one(
         {
             'login': login,
@@ -44,18 +59,7 @@ async def sign_in(db, login, password):
         return {'status': 'error', 'reason': 'wrong_password'}
     if 'token' in user:
         return {'status': 'ok', 'token': user['token']}
-    token = str(bson.ObjectId())
-    await db.users.update_one(
-        {
-            '_id': user['_id']
-        },
-        {
-            '$set': {
-                'token': token,
-            },
-        },
-    )
-    return {'status': 'ok', 'token': token}
+    return {'status': 'error', 'reason': 'unknown'}
 
 
 async def sign_out(db, user):

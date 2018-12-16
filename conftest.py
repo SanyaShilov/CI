@@ -87,8 +87,8 @@ async def db(monkeypatch, loop):
     return database
 
 
-@pytest.fixture(autouse=True)
-def utcnow(monkeypatch):
+@pytest.fixture(autouse=True, scope='session')
+def utcnow():
     from freezegun import freeze_time
 
     freezer = freeze_time("2018-11-14 23:09:01")

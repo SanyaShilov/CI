@@ -59,6 +59,7 @@ async def sign_out():
     await wait_new_url(old_url)
 
 
+@pytest.mark.xfail
 async def test_main_page():
     driver.get('http://localhost:8080')
     assert driver.title == 'FakeProjectEuler'
@@ -72,6 +73,7 @@ async def test_main_page():
     assert footer.text == 'Powered by Shilov Alexandr'
 
 
+@pytest.mark.xfail
 async def test_sign_in():
     await sign_in()
     cookie = driver.get_cookies()[0]
@@ -104,6 +106,7 @@ async def test_sign_in():
         )
     ]
 )
+@pytest.mark.xfail
 async def test_archives(query, expected_task_ids):
     await sign_in()
     driver.get('http://localhost:8080/archives{}'.format(query))
@@ -111,6 +114,7 @@ async def test_archives(query, expected_task_ids):
     assert [int(task_id.text) for task_id in task_ids] == expected_task_ids
 
 
+@pytest.mark.xfail
 async def test_sign_out():
     await sign_in()
     assert driver.get_cookies() != []
@@ -119,6 +123,7 @@ async def test_sign_out():
     assert driver.get_cookies() == []
 
 
+@pytest.mark.xfail
 async def test_task():
     await sign_in()
     driver.get('http://localhost:8080/task?id=1')
@@ -135,6 +140,7 @@ async def test_task():
     assert answer.text == 'answer: 233168'
 
 
+@pytest.mark.xfail
 async def test_account():
     await sign_in()
     driver.get('http://localhost:8080/account')
